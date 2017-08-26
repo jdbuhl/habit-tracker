@@ -1,9 +1,15 @@
 import React from 'react';
+import './App.css';
+
+import { NewHabit } from './NewHabit';
 
 class App extends React.Component {
   render() {
     return (
-      <h1>Hello world!!!</h1>
+      <div>
+        <h1>Hello world!!!</h1>
+        <NewHabit />
+      </div>
     )
   }
 }
