@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src -d lib"
+    "compile": "webpack"
   },
   "repository": {
     "type": "git",
@@ -18,9 +19,18 @@
     "url": "https://github.com/dandreaj/mvp-project/issues"
   },
   "homepage": "https://github.com/dandreaj/mvp-project#readme",
-  "dependencies": {},
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "express": "^4.15.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "webpack": "^3.5.5",
+    "webpack-dev-middleware": "^1.12.0"
+  },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.0"
   }
 }
