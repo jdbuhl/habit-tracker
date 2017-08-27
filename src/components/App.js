@@ -27,7 +27,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Hello world!!!</h1>
-        <HabitContainer />
+        <HabitContainer habits={this.state.habits} />
       </div>
     )
   }
