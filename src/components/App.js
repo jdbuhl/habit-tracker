@@ -8,8 +8,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      habits: [],
+      habits: []
     };
+    this.increaseHabitCount = this.increaseHabitCount.bind(this);
   }
 
   componentDidMount() {
@@ -23,11 +24,22 @@ class App extends React.Component {
     });
   }
 
+  increaseHabitCount(habit) {
+    console.log(habit);
+    habit.count++;
+    if(habit.status === 'In progress') {
+      if(habit.count >= 21) {
+        habit.status = 'Completed';
+      }
+    }
+    axios.put('http://localhost:3001/updateHabit',habit);
+  }
+
   render() {
     return (
       <div>
         <h1>Hello world!!!</h1>
-        <HabitContainer habits={this.state.habits} />
+        <HabitContainer onClick={this.increaseHabitCount} habits={this.state.habits} />
       </div>
     )
   }

@@ -2,6 +2,7 @@ import express from 'express';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpack from 'webpack';
 import webpackConfig from './webpack.config.js';
+import bodyParser from 'body-parser';
 
 import { MongooseConnection } from './app/config.js';
 import { Habit } from './app/models/habits.js';
@@ -22,6 +23,8 @@ app.use(webpackDevMiddleware(compiler, {
   historyApiFallback: true,
 }));
 
+app.use(bodyParser.json());
+
 app.get('/test', function (req, res) {
   res.send('Hello World!');
 });
@@ -37,6 +40,27 @@ app.get('/habits', function(req, res) {
     }
   });
 });
+
+app.put('/updateHabit', function(req, res) {
+  Habit.findById(req.body._id, function(err, habit) {
+    if(err) {
+      res.status(500).send(err);
+    } else {
+      habit.name = req.body.name || habit.name;
+      habit.description = req.body.description || habit.description;
+      habit.count = req.body.count || habit.count;
+      habit.status = req.body.status || habit.status;
+
+      // Save the updated document back to the database
+      habit.save(function (err, habit) {
+          if (err) {
+              res.status(500).send(err)
+          }
+          res.send(habit);
+      });
+    }
+  })
+})
 
 MongooseConnection();
  

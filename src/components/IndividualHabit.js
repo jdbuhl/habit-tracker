@@ -1,9 +1,12 @@
 import React from 'react';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
-
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 export const Habit = (props) => {
-  console.log(props.habit);
+  const clickHandler = () => {
+    props.onClick(props.habit);
+  }
   return (
     <Card>
       <CardHeader
@@ -11,11 +14,13 @@ export const Habit = (props) => {
       subtitle={props.habit.description}
     />
     <CardText>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+      {props.habit.count}
     </CardText>
+    <CardActions>
+      <FloatingActionButton  onClick={clickHandler}>
+        <ContentAdd />
+      </FloatingActionButton>
+    </CardActions>
     </Card>
   );
 }

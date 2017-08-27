@@ -7,7 +7,7 @@ export const HabitContainer = (props) => {
     <div>
     {props.habits.map(habit =>
       <MuiThemeProvider>
-        <Habit habit={habit} />
+        <Habit onClick={props.onClick} habit={habit} />
       </MuiThemeProvider>
     )}
     </div>
