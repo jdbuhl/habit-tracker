@@ -3,6 +3,8 @@ import './App.css';
 import axios from 'axios';
 
 import { HabitContainer } from './Habits';
+import NewHabitDialog from './NewHabit';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends React.Component {
   constructor(props) {
@@ -38,6 +40,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <MuiThemeProvider>
+          <NewHabitDialog />
+        </MuiThemeProvider>
         <h1>Hello world!!!</h1>
         <HabitContainer onClick={this.increaseHabitCount} habits={this.state.habits} />
       </div>

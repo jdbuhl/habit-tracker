@@ -15,6 +15,7 @@ export const Habit = (props) => {
     />
     <CardText>
       {props.habit.count}
+      {props.habit.status}
     </CardText>
     <CardActions>
       <FloatingActionButton  onClick={clickHandler}>
