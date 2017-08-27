@@ -13,6 +13,7 @@ class App extends React.Component {
       habits: []
     };
     this.increaseHabitCount = this.increaseHabitCount.bind(this);
+    this.addNewHabit = this.addNewHabit.bind(this);
   }
 
   componentDidMount() {
@@ -37,11 +38,21 @@ class App extends React.Component {
     axios.put('http://localhost:3001/updateHabit',habit);
   }
 
+  addNewHabit(habit) {
+    axios.post('/habit', habit)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   render() {
     return (
       <div>
         <MuiThemeProvider>
-          <NewHabitDialog />
+          <NewHabitDialog onSubmit={this.addNewHabit} />
         </MuiThemeProvider>
         <h1>Hello world!!!</h1>
         <HabitContainer onClick={this.increaseHabitCount} habits={this.state.habits} />

@@ -60,6 +60,17 @@ app.put('/updateHabit', function(req, res) {
       });
     }
   })
+});
+
+app.post('/habit', function(req, res) {
+  var habit = new Habit(req.body);
+  habit.save(function(err, habit) {
+    if(err) {
+      res.send(err);
+    } else {
+      res.send(habit);
+    }
+  })
 })
 
 MongooseConnection();
