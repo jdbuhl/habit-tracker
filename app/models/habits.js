@@ -7,4 +7,4 @@ const habitSchema = mongoose.Schema({
   status: String
 });
 
-const Habit = mongoose.model('Habit', habitSchema);
+export const Habit = mongoose.model('Habit', habitSchema);

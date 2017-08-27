@@ -4,6 +4,7 @@ import webpack from 'webpack';
 import webpackConfig from './webpack.config.js';
 
 import { MongooseConnection } from './app/config.js';
+import { Habit } from './app/models/habits.js';
 
 export const app = express();
  
@@ -23,6 +24,18 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.get('/test', function (req, res) {
   res.send('Hello World!');
+});
+
+app.get('/habits', function(req, res) {
+  Habit.find(function(err, habits) {
+    if(err) {
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log(habits);
+      res.send(habits);
+    }
+  });
 });
 
 MongooseConnection();
