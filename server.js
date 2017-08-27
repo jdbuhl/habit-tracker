@@ -1,8 +1,11 @@
-const express = require('express');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpack = require('webpack');
-const webpackConfig = require('./webpack.config.js');
-const app = express();
+import express from 'express';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpack from 'webpack';
+import webpackConfig from './webpack.config.js';
+
+import { MongooseConnection } from './app/config.js';
+
+export const app = express();
  
 const compiler = webpack(webpackConfig);
  
@@ -17,9 +20,15 @@ app.use(webpackDevMiddleware(compiler, {
   },
   historyApiFallback: true,
 }));
- 
-const server = app.listen(3001, function() {
-  const host = server.address().address;
-  const port = server.address().port;
-  console.log('Example app listening at http://%s:%s', host, port);
+
+app.get('/test', function (req, res) {
+  res.send('Hello World!');
 });
+
+MongooseConnection();
+ 
+// const server = app.listen(3001, function() {
+//   const host = server.address().address;
+//   const port = server.address().port;
+//   console.log('Example app listening at http://%s:%s', host, port);
+// });
