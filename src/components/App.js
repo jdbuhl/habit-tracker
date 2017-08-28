@@ -54,7 +54,6 @@ class App extends React.Component {
         <MuiThemeProvider>
           <NewHabitDialog onSubmit={this.addNewHabit} />
         </MuiThemeProvider>
-        <h1>Hello world!!!</h1>
         <HabitContainer onClick={this.increaseHabitCount} habits={this.state.habits} />
       </div>
     )
