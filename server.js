@@ -30,7 +30,9 @@ app.get('/test', function (req, res) {
 });
 
 app.get('/habits', function(req, res) {
-  Habit.find(function(err, habits) {
+  Habit.find({})
+  .sort('-createdAt')
+  .exec(function(err, habits) {
     if(err) {
       console.log(err);
       res.send(err);
@@ -71,7 +73,17 @@ app.post('/habit', function(req, res) {
       res.send(habit);
     }
   })
-})
+});
+
+app.post('/remove', function(req, res) {
+  Habit.remove({_id: req.body._id}, function(err) {
+    if(err) {
+      res.send(err);
+    } else {
+      res.send('done');
+    }
+  });
+});
 
 MongooseConnection();
  

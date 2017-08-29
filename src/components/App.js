@@ -14,6 +14,8 @@ class App extends React.Component {
     };
     this.increaseHabitCount = this.increaseHabitCount.bind(this);
     this.addNewHabit = this.addNewHabit.bind(this);
+    this.removeHabit = this.removeHabit.bind(this);
+    this.getHabits = this.getHabits.bind(this);
   }
 
   componentDidMount() {
@@ -28,20 +30,35 @@ class App extends React.Component {
   }
 
   increaseHabitCount(habit) {
-    console.log(habit);
     habit.count++;
     if(habit.status === 'In progress') {
       if(habit.count >= 21) {
         habit.status = 'Completed';
       }
     }
-    axios.put('http://localhost:3001/updateHabit',habit);
+    axios.put('http://localhost:3001/updateHabit',habit).then( () => {
+      this.getHabits();
+    });
   }
 
   addNewHabit(habit) {
+    var ctx = this;
     axios.post('/habit', habit)
     .then(function (response) {
       console.log(response);
+      ctx.getHabits();
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  removeHabit(habit) {
+    var ctx = this;
+    axios.post('/remove', habit)
+    .then(function (response) {
+      console.log(response);
+      ctx.getHabits();
     })
     .catch(function (error) {
       console.log(error);
@@ -54,7 +71,7 @@ class App extends React.Component {
         <MuiThemeProvider>
           <NewHabitDialog onSubmit={this.addNewHabit} />
         </MuiThemeProvider>
-        <HabitContainer onClick={this.increaseHabitCount} habits={this.state.habits} />
+        <HabitContainer onRemove={this.removeHabit} onClick={this.increaseHabitCount} habits={this.state.habits} />
       </div>
     )
   }

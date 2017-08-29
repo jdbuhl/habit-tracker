@@ -24,7 +24,11 @@ class NewHabitDialog extends React.Component {
   };
 
   handleClose() {
-    this.setState({open: false});
+    this.setState({
+      open: false,
+      name: '',
+      description: ''
+    });
   };
 
   handleSubmit(event) {
@@ -33,7 +37,8 @@ class NewHabitDialog extends React.Component {
       name: this.state.name,
       description: this.state.description,
       count: 0,
-      status: 'In progress'
+      status: 'In progress',
+      createdAt: new Date()
     }
     this.submit(newHabit);
     this.handleClose();
@@ -75,7 +80,7 @@ class NewHabitDialog extends React.Component {
             </label>
             <label>
               Description:
-              <input type="text" name="desription" onChange={this.handleChange} value={this.state.description} />
+              <input type="text" name="description" onChange={this.handleChange} value={this.state.description} />
             </label>
           </form>
         </Dialog>
