@@ -5,7 +5,8 @@ const habitSchema = mongoose.Schema({
   description: String,
   count: Number,
   status: String,
-  createdAt: Date
+  createdAt: Date,
+  lastCompletedOn: Date
 });
 
 export const Habit = mongoose.model('Habit', habitSchema);

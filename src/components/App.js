@@ -5,12 +5,14 @@ import axios from 'axios';
 import { HabitContainer } from './Habits';
 import NewHabitDialog from './NewHabit';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import moment from 'moment';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      habits: []
+      habits: [],
+      selectedHabit: ''
     };
     this.increaseHabitCount = this.increaseHabitCount.bind(this);
     this.addNewHabit = this.addNewHabit.bind(this);
@@ -30,7 +32,20 @@ class App extends React.Component {
   }
 
   increaseHabitCount(habit) {
-    habit.count++;
+    let now = moment(new Date());
+    let last = moment(habit.lastCompletedOn);
+    if(last) {
+      let diff = now.diff(last, 'days');
+      if(diff > 1){
+        habit.count = 1;
+      } else {
+        habit.count++;
+      }
+    } else {
+      habit.count = 1;
+    }
+    
+    habit.lastCompletedOn = new Date();
     if(habit.status === 'In progress') {
       if(habit.count >= 21) {
         habit.status = 'Completed';
@@ -57,7 +72,6 @@ class App extends React.Component {
     var ctx = this;
     axios.post('/remove', habit)
     .then(function (response) {
-      console.log(response);
       ctx.getHabits();
     })
     .catch(function (error) {

@@ -33,15 +33,20 @@ class NewHabitDialog extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let newHabit = {
-      name: this.state.name,
-      description: this.state.description,
-      count: 0,
-      status: 'In progress',
-      createdAt: new Date()
+    if(this.state.name === '' || this.state.description === '') {
+      alert('Please fill out the form!')
+    } else {
+      let newHabit = {
+        name: this.state.name,
+        description: this.state.description,
+        count: 0,
+        status: 'In progress',
+        createdAt: new Date()
+      };
+      this.submit(newHabit);
+      this.handleClose();
     }
-    this.submit(newHabit);
-    this.handleClose();
+
   }
 
   handleChange(event) {

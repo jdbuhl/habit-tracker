@@ -37,7 +37,6 @@ app.get('/habits', function(req, res) {
       console.log(err);
       res.send(err);
     } else {
-      console.log(habits);
       res.send(habits);
     }
   });
@@ -52,6 +51,7 @@ app.put('/updateHabit', function(req, res) {
       habit.description = req.body.description || habit.description;
       habit.count = req.body.count || habit.count;
       habit.status = req.body.status || habit.status;
+      habit.lastCompletedOn = req.body.lastCompletedOn || habit.lastCompletedOn;
 
       // Save the updated document back to the database
       habit.save(function (err, habit) {

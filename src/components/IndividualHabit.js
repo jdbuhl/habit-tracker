@@ -5,13 +5,13 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import {BarMetric} from 'react-simple-charts';
 
 export const Habit = (props) => {
+  let selectedDate = '';
   const clickHandler = () => {
-    props.onClick(props.habit);
+    props.onClick(props.habit, selectedDate);
   }
   const removeHandler = () => {
     props.onRemove(props.habit);
   }
-  console.log(props.habit.count);
   const habitPercentage = (props.habit.count / 21)*100;
   return (
     <Card>
