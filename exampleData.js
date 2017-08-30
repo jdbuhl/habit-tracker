@@ -5,7 +5,8 @@ db.habits.insert(
     "count": 0,
     "status": 'In progress',
     "createdAt": '2017-07-22T00:05:10-05:00',
-    "lastCompletedOn": '2017-08-30T00:05:10-05:00'
+    "lastCompletedOn": '2017-08-30T00:05:10-05:00',
+    "goal": 10
    }
 )
 db.habits.insert(
@@ -15,7 +16,8 @@ db.habits.insert(
   "count": 5,
   "status": 'In progress',
   "createdAt": '2017-07-21T00:05:10-05:00',
-  "lastCompletedOn": '2017-07-30T00:05:10-05:00'
+  "lastCompletedOn": '2017-07-30T00:05:10-05:00',
+  "goal": 21
  })
  db.habits.insert(
   {
@@ -24,7 +26,8 @@ db.habits.insert(
   "count": 20,
   "status": 'In progress',
   "createdAt": '2017-07-20T00:05:10-05:00',
-  "lastCompletedOn": '2017-08-29T00:05:10-05:00'
+  "lastCompletedOn": '2017-08-29T00:05:10-05:00',
+  "goal": 21
  })
  db.habits.insert(
   {
@@ -33,7 +36,8 @@ db.habits.insert(
   "count": 15,
   "status": 'In progress',
   "createdAt": '2017-07-20T00:05:10-05:00',
-  "lastCompletedOn": '2017-08-27T00:05:10-05:00'
+  "lastCompletedOn": '2017-08-27T00:05:10-05:00',
+  "goal": 21
  })
 
 

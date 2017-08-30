@@ -12,7 +12,7 @@ export const Habit = (props) => {
   const removeHandler = () => {
     props.onRemove(props.habit);
   }
-  const habitPercentage = (props.habit.count / 21)*100;
+  const habitPercentage = (props.habit.count / props.habit.goal)*100;
   return (
     <Card>
       <CardHeader

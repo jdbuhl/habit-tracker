@@ -52,6 +52,7 @@ app.put('/updateHabit', function(req, res) {
       habit.count = req.body.count || habit.count;
       habit.status = req.body.status || habit.status;
       habit.lastCompletedOn = req.body.lastCompletedOn || habit.lastCompletedOn;
+      habit.goal = req.body.goal || habit.goal;
 
       // Save the updated document back to the database
       habit.save(function (err, habit) {

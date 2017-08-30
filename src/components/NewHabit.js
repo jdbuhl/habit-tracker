@@ -27,7 +27,8 @@ class NewHabitDialog extends React.Component {
     this.setState({
       open: false,
       name: '',
-      description: ''
+      description: '',
+      goal: 21
     });
   };
 
@@ -39,6 +40,7 @@ class NewHabitDialog extends React.Component {
       let newHabit = {
         name: this.state.name,
         description: this.state.description,
+        goal: this.state.goal,
         count: 0,
         status: 'In progress',
         createdAt: new Date()
@@ -86,6 +88,10 @@ class NewHabitDialog extends React.Component {
             <label>
               Description:
               <input type="text" name="description" onChange={this.handleChange} value={this.state.description} />
+            </label>
+            <label>
+              Goal:
+              <input type="text" name="goal" onChange={this.handleChange} value={this.state.goal} />
             </label>
           </form>
         </Dialog>

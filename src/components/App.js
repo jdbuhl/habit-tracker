@@ -47,7 +47,7 @@ class App extends React.Component {
     
     habit.lastCompletedOn = new Date();
     if(habit.status === 'In progress') {
-      if(habit.count >= 21) {
+      if(habit.count >= habit.goal) {
         habit.status = 'Completed';
       }
     }
