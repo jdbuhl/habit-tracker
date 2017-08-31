@@ -3,6 +3,8 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 class NewHabitDialog extends React.Component {
   constructor(props) {
@@ -37,7 +39,7 @@ class NewHabitDialog extends React.Component {
     event.preventDefault();
     if(this.state.name === '' || this.state.description === '' || this.state.goal === '') {
       alert('Please fill out the form!');
-    } if(isNaN(this.state.goal)) {
+    } else if(isNaN(this.state.goal)) {
       alert("Your goal must be a number.");
     } else {
       let newHabit = {
@@ -76,7 +78,8 @@ class NewHabitDialog extends React.Component {
 
     return (
       <div>
-        <RaisedButton label="Add New Habit" onClick={this.handleOpen} />
+        <IconButton tooltip="Add a new habit" onClick={this.handleOpen}><ContentAdd /></IconButton>
+
         <Dialog
           title="Add a New Habit"
           actions={actions}

@@ -8,6 +8,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import moment from 'moment';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 class App extends React.Component {
   constructor(props) {
@@ -97,6 +100,11 @@ class App extends React.Component {
     axios.post('/remove', habitToRemove)
     .then(function (response) {
       ctx.getHabits();
+      if(ctx.state.open === true){
+        ctx.setState({
+          open:false
+        })
+      }
     })
     .catch(function (error) {
       console.log(error);
@@ -138,6 +146,14 @@ class App extends React.Component {
     return (
       <div>
         <MuiThemeProvider>
+          <AppBar
+            title="Habit Tracker"
+            iconElementRight={<MuiThemeProvider>
+          <NewHabitDialog onSubmit={this.addNewHabit} />
+        </MuiThemeProvider>}
+           />
+        </MuiThemeProvider>
+        <MuiThemeProvider>
         <Dialog
           title="Congratulations! You've met your goal!"
           actions={actions}
@@ -152,9 +168,6 @@ class App extends React.Component {
             </label>
           </form>
         </Dialog>
-        </MuiThemeProvider>
-        <MuiThemeProvider>
-          <NewHabitDialog onSubmit={this.addNewHabit} />
         </MuiThemeProvider>
         <HabitContainer onRemove={this.removeHabit} onClick={this.increaseHabitCount} habits={this.state.habits} />
       </div>
