@@ -10,7 +10,8 @@ class NewHabitDialog extends React.Component {
     this.state = {
       open: false,
       name: '',
-      description: ''
+      description: '',
+      goal: ''
     };
     this.submit = props.onSubmit;
     this.handleOpen = this.handleOpen.bind(this);
@@ -28,14 +29,16 @@ class NewHabitDialog extends React.Component {
       open: false,
       name: '',
       description: '',
-      goal: 21
+      goal: ''
     });
   };
 
   handleSubmit(event) {
     event.preventDefault();
-    if(this.state.name === '' || this.state.description === '') {
-      alert('Please fill out the form!')
+    if(this.state.name === '' || this.state.description === '' || this.state.goal === '') {
+      alert('Please fill out the form!');
+    } if(isNaN(this.state.goal)) {
+      alert("Your goal must be a number.");
     } else {
       let newHabit = {
         name: this.state.name,
@@ -91,7 +94,7 @@ class NewHabitDialog extends React.Component {
             </label>
             <label>
               Goal:
-              <input type="text" name="goal" onChange={this.handleChange} value={this.state.goal} />
+              <input type="number" name="goal" onChange={this.handleChange} value={this.state.goal} />
             </label>
           </form>
         </Dialog>

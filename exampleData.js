@@ -11,11 +11,11 @@ db.habits.insert(
 )
 db.habits.insert(
 {
-  "name": 'Exercise',
+  "name": 'test',
   "description": 'Get at least 20 minutes of exercise in a day.',
   "count": 5,
   "status": 'In progress',
-  "createdAt": '2017-07-21T00:05:10-05:00',
+  "createdAt": '2017-06-21T00:05:10-05:00',
   "lastCompletedOn": '2017-07-30T00:05:10-05:00',
   "goal": 21
  })
