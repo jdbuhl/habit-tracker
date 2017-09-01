@@ -13,7 +13,10 @@ class NewHabitDialog extends React.Component {
       open: false,
       name: '',
       description: '',
-      goal: ''
+      goal: '',
+      nameError: '',
+      descriptionError: '',
+      goalError: ''
     };
     this.submit = props.onSubmit;
     this.handleOpen = this.handleOpen.bind(this);
@@ -37,10 +40,22 @@ class NewHabitDialog extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if(this.state.name === '' || this.state.description === '' || this.state.goal === '') {
-      alert('Please fill out the form!');
+    if(this.state.name === '') {
+      this.setState({
+        nameError: "This field is required!"
+      });
+    } else if(this.state.description === '') {
+      this.setState({
+        descriptionError: "This field is required!"
+      });
+    } else if(this.state.goal === '') {
+      this.setState({
+        goalError: "This field is required!"
+      });
     } else if(isNaN(this.state.goal)) {
-      alert("Your goal must be a number.");
+      this.setState({
+        goalError: "Your goal must be a number."
+      });
     } else {
       let newHabit = {
         name: this.state.name,
@@ -57,7 +72,16 @@ class NewHabitDialog extends React.Component {
   }
 
   handleChange(event) {
+    let errorText = event.target.name+'Error';
+    let errorState = {};
     let newState = {};
+    if (event.target.value) {
+      errorState[errorText] = '';
+      this.setState(errorState);
+    } else {
+      errorState[errorText] = 'This field is required!'
+      this.setState(errorState)
+    }
     newState[event.target.name] = event.target.value;
     this.setState(newState);
   }
@@ -87,18 +111,47 @@ class NewHabitDialog extends React.Component {
           open={this.state.open}
         >
           <form>
-            <label>
+            <TextField
+            floatingLabelText="Name"
+            hintText="Give your habit a name"
+            name="name"
+            onChange={this.handleChange}
+            value={this.state.name}
+            fullWidth={true}
+            errorText={this.state.nameError}
+            /><br />
+            <br />
+            <TextField
+            floatingLabelText="Desription"
+            hintText="Write a brief description of the habit you want to instill"
+            name="description"
+            onChange={this.handleChange}
+            value={this.state.description}
+            fullWidth={true}
+            errorText={this.state.descriptionError}
+            /><br />
+            <br />
+            <TextField
+            floatingLabelText="Goal"
+            hintText="Set a goal for yourself!"
+            name="goal"
+            onChange={this.handleChange}
+            value={this.state.goal}
+            fullWidth={true}
+            errorText={this.state.goalError}
+            />
+            {/* <label>
               Name:
               <input type="text" name="name" onChange={this.handleChange} value={this.state.name} />
-            </label>
-            <label>
+            </label> */}
+            {/* <label>
               Description:
               <input type="text" name="description" onChange={this.handleChange} value={this.state.description} />
-            </label>
-            <label>
+            </label> */}
+            {/* <label>
               Goal:
               <input type="number" name="goal" onChange={this.handleChange} value={this.state.goal} />
-            </label>
+            </label> */}
           </form>
         </Dialog>
       </div>

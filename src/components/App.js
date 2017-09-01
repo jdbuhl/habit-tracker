@@ -11,6 +11,7 @@ import FlatButton from 'material-ui/FlatButton';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import TextField from 'material-ui/TextField';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,7 +19,8 @@ class App extends React.Component {
     this.state = {
       open: false,
       habits: [],
-      selectedHabit: {}
+      selectedHabit: {},
+      errorText: ''
     };
     this.increaseHabitCount = this.increaseHabitCount.bind(this);
     this.addNewHabit = this.addNewHabit.bind(this);
@@ -113,7 +115,11 @@ class App extends React.Component {
 
   updateGoal() {
     if(this.state.selectedHabit.goal <= this.state.selectedHabit.count) {
-      alert('New goal must be greater than '+this.state.selectedHabit.count);
+      let error = 'New goal must be greater than '+this.state.selectedHabit.count;
+      let errorState = {}
+      errorState.errorText = error;
+      this.setState(errorState);
+      // alert('New goal must be greater than '+this.state.selectedHabit.count);
     } else {
       axios.put('http://localhost:3001/updateHabit',this.state.selectedHabit).then( () => {
         this.handleClose();
@@ -161,12 +167,15 @@ class App extends React.Component {
           open={this.state.open}
         >
         <h3>{this.state.selectedHabit.name}</h3>
-        <form>
-            <label>
-             Goal:
-              <input type="text" name="goal" onChange={this.onChange} value={this.state.selectedHabit.goal} />
-            </label>
-          </form>
+        <TextField
+            floatingLabelText="New Goal"
+            hintText="Set a new goal for yourself!"
+            name="goal"
+            onChange={this.onChange}
+            value={this.state.selectedHabit.goal}
+            fullWidth={true}
+            errorText={this.state.errorText}
+            />
         </Dialog>
         </MuiThemeProvider>
         <HabitContainer onRemove={this.removeHabit} onClick={this.increaseHabitCount} habits={this.state.habits} />

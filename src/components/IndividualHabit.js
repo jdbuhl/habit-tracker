@@ -5,6 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {BarMetric} from 'react-simple-charts';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
+import TextField from 'material-ui/TextField';
 
 export const Habit = (props) => {
   let selectedDate = '';
@@ -15,20 +16,48 @@ export const Habit = (props) => {
     props.onRemove(props.habit);
   }
   const habitPercentage = (props.habit.count / props.habit.goal)*100;
+  const cardStyle = {
+    display: 'block',
+    width: '70%',
+    transitionDuration: '0.3s',
+    margin: '40px'
+  }
   return (
-    <Card>
+    <Card style={cardStyle}>
       <CardHeader
       title={props.habit.name}
       subtitle={props.habit.description}>
       <div style={{position: 'absolute', top: 5, right: 5, zIndex: 1000}}>
-        <IconButton tooltip="Delete this habit" onClick={removeHandler}><ActionDelete/></IconButton>
+        <IconButton
+        tooltip="Delete this habit"
+        onClick={removeHandler}
+        ><ActionDelete/></IconButton>
       </div>
       </CardHeader>
     <CardText>
-      <BarMetric percent={habitPercentage} metricName="Consecutive Days"/>
-      {props.habit.count}
-      {props.habit.status}
-      {props.habit.createdAt}
+      <BarMetric
+      percent={habitPercentage}
+      metricName="Consecutive Days"
+      label=''
+      />
+      <TextField
+      floatingLabelText="Current count"
+      disabled={true}
+      id="text-field-disabled"
+      value={props.habit.count}
+      />
+      <TextField
+      floatingLabelText="Created at"
+      disabled={true}
+      id="text-field-disabled"
+      defaultValue={props.habit.createdAt}
+      />
+      <TextField
+      floatingLabelText="Habit goal"
+      disabled={true}
+      id="text-field-disabled"
+      value={props.habit.goal}
+      />
     </CardText>
     <CardActions>
       <FloatingActionButton  onClick={clickHandler}>
