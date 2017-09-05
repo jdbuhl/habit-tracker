@@ -58,6 +58,12 @@ export const Habit = (props) => {
       id="text-field-disabled"
       value={props.habit.goal}
       />
+      <TextField
+      floatingLabelText="Last completed"
+      disabled={true}
+      id="text-field-disabled"
+      value={props.habit.lastCompletedOn}
+      />
     </CardText>
     <CardActions>
       <FloatingActionButton  onClick={clickHandler}>

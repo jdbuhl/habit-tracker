@@ -23,7 +23,7 @@ db.habits.insert(
   {
   "name": 'Wake up early',
   "description": 'Early bird catches the worm. Wake up by 6:30am.',
-  "count": 20,
+  "count": 15,
   "status": 'In progress',
   "createdAt": '2017-07-20T00:05:10-05:00',
   "lastCompletedOn": '2017-08-29T00:05:10-05:00',

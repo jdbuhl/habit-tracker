@@ -56,6 +56,10 @@ class NewHabitDialog extends React.Component {
       this.setState({
         goalError: "Your goal must be a number."
       });
+    } else if(this.state.goal <= 0) {
+      this.setState({
+        goalError: "Your goal must be greater than 0."
+      });
     } else {
       let newHabit = {
         name: this.state.name,
