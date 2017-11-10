@@ -8,3 +8,4 @@ npm-debug.log*
 node_modules/
 www/bundle.js
 
+app/credentials.js

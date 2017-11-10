@@ -1,11 +1,13 @@
 import mongoose from 'mongoose';
+const dbUri = require('./credentials').dbUri;
 
 export const MongooseConnection = () => {
-  mongoose.connect('mongodb://127.0.0.1/habitsTracker', {
+  console.log(dbUri);
+  mongoose.connect(dbUri , {
     useMongoClient: true,
   });
   const db = mongoose.connection;
-  db.on("error", () => { console.log("---FAILED to connect to mongoose"); });
+  db.on("error", (error) => { console.log("---FAILED to connect to mongoose", error); });
   db.once("open", () => {
     console.log("+++Connected to mongoose");
   });
