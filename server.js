@@ -2,16 +2,16 @@ import express from 'express';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpack from 'webpack';
 import webpackConfig from './webpack.config.js';
+import { resolve } from 'path';
 import bodyParser from 'body-parser';
 
 import { MongooseConnection } from './app/config.js';
 import { Habit } from './app/models/habits.js';
 
 export const app = express();
- 
 const compiler = webpack(webpackConfig);
- 
-app.use(express.static(__dirname + '/www'));
+
+const apiRouter = express.Router();
  
 app.use(webpackDevMiddleware(compiler, {
   hot: true,
@@ -23,16 +23,26 @@ app.use(webpackDevMiddleware(compiler, {
   historyApiFallback: true,
 }));
 
+app.use(express.static(__dirname + '/www'));
+
 app.use(bodyParser.json());
 
-app.get('/test', function (req, res) {
-  res.send('Hello World!');
+app.use('/api', apiRouter);
+
+app.get('/*', (req, res) => {
+  res.sendFile(resolve('./www', 'index.html'));
 });
 
-app.get('/habits', function(req, res) {
+apiRouter.route('/test')
+  .get((req, res) => {
+    res.send('hello')
+})
+
+apiRouter.route('/habits')
+.get((req, res) => {
   Habit.find({})
   .sort('-createdAt')
-  .exec(function(err, habits) {
+  .exec((err, habits) => {
     if(err) {
       console.log(err);
       res.send(err);
@@ -40,9 +50,10 @@ app.get('/habits', function(req, res) {
       res.send(habits);
     }
   });
-});
+})
 
-app.put('/updateHabit', function(req, res) {
+apiRouter.route('/updateHabit')
+.put((req, res) => {
   Habit.findById(req.body._id, function(err, habit) {
     if(err) {
       res.status(500).send(err);
@@ -63,10 +74,11 @@ app.put('/updateHabit', function(req, res) {
       });
     }
   })
-});
+})
 
-app.post('/habit', function(req, res) {
-  var habit = new Habit(req.body);
+apiRouter.route('/habit')
+.post((req, res) => {
+  let habit = new Habit(req.body);
   habit.save(function(err, habit) {
     if(err) {
       res.send(err);
@@ -74,9 +86,10 @@ app.post('/habit', function(req, res) {
       res.send(habit);
     }
   })
-});
+})
 
-app.post('/remove', function(req, res) {
+apiRouter.route('/remove')
+.post((req, res) => {
   Habit.remove({_id: req.body._id}, function(err) {
     if(err) {
       res.send(err);
@@ -84,12 +97,6 @@ app.post('/remove', function(req, res) {
       res.send('done');
     }
   });
-});
+})
 
 MongooseConnection();
- 
-// const server = app.listen(3001, function() {
-//   const host = server.address().address;
-//   const port = server.address().port;
-//   console.log('Example app listening at http://%s:%s', host, port);
-// });
