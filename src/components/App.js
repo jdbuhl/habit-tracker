@@ -1,18 +1,15 @@
 import React from 'react';
-// import { Switch, Route } from 'react-router-dom';
-// import Container from './Container';
-// import Login from './Login';
+import { Switch, Route } from 'react-router-dom';
+import { Login } from './Login';
+import Container from './Container';
 
-export const App = () => {
+export const App = (props) => {
   return (
-    <h1>hello world</h1>
+  <main>
+    <Switch>
+      <Route path='/login' component={Login}/>
+      <Route exact path='/' component={Container}/>
+    </Switch>
+  </main>
   )
 }
-  
-  // <main>
-  //   <Switch>
-  //     <Route exact path='/' component={Container}/>
-  //     <Route path='/login' component={Login}/>
-  //   </Switch>
-  // </main>
-// )
